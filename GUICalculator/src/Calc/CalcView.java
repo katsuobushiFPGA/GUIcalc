@@ -1,7 +1,7 @@
 package Calc;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,19 +14,31 @@ public class CalcView extends JFrame{
 	CalcView(String title){
 		JPanel num = new JPanel();
 		JPanel res = new JPanel();
+		GridLayout number = new GridLayout(3,3);
+
 		/* 電卓の数字ボタンを生成 */
 		JButton[] btnGroup = new JButton[10];
-		for(int i=0;i<btnGroup.length;i++){
-			btnGroup[i] = new JButton("ボタン");
+		for(int i=1;i<btnGroup.length;i++){
+			btnGroup[i-1] = new JButton("");
 		}
 		/* アイコン設定 */
 	    ImageIcon icon = new ImageIcon("G:\\download\\icon.png");
 	    setIconImage(icon.getImage());
 
 	    /* レイアウトを設定する */
+	    num.setLayout(number);
 	    Container contentPane = getContentPane();
-		contentPane.add(btnGroup[0],BorderLayout.NORTH);
-		contentPane.add(btnGroup[0],BorderLayout.NORTH);
-		contentPane.add(btnGroup[0],BorderLayout.NORTH);
+	    contentPane.add(num);
+
+	    num.add(btnGroup[0]);
+	    num.add(btnGroup[1]);
+	    num.add(btnGroup[2]);
+	    num.add(btnGroup[3]);
+	    num.add(btnGroup[4]);
+	    num.add(btnGroup[5]);
+	    num.add(btnGroup[6]);
+	    num.add(btnGroup[7]);
+	    num.add(btnGroup[8]);
+
 	}
 }
