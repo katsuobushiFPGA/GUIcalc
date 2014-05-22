@@ -118,9 +118,23 @@ public class CalcView extends JFrame{
 	    /* clearPanel-clearをclearPanelに貼り付ける*/
 	    clearPanel.add(clear);
 
+	    /* イベントの登録 */
+//	    btnGroup[0][0].addActionListener(
+//	    		 new ActionListener(){
+//	    			        public void actionPerformed(ActionEvent event){
+//	    			          JLabel msg = new JLabel("クリックされました");
+//	    			          this.setText(processLabel,"7");
+//	    			        }
+//	    		}
+//	    );
+
 	}
 	/* 外部アクセス用メソッド*/
+
 	public void setText(JLabel label,String text){
 		label.setText(text);
 	}
+
+
+
 }
