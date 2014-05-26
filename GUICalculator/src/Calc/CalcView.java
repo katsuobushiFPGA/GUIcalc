@@ -38,6 +38,7 @@ public class CalcView extends JFrame{
 	CalcView(String title,int width,int height){
 	    /* 生成時、終了時の処理 */
 		setSize(width,height);
+		setTitle(title);
 		setVisible(true);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -66,6 +67,7 @@ public class CalcView extends JFrame{
 		btnGroup[4][1] = new JButton(")");
 		btnGroup[4][2] = new JButton("");
 		btnGroup[4][3] = new JButton("");
+
 
 		/* keyPanel-文字の大きさを設定する。 */
 		for(int i=0;i < 5;i++){
@@ -121,9 +123,9 @@ public class CalcView extends JFrame{
 	    /* clearPanel-clearをclearPanelに貼り付ける*/
 	    clearPanel.add(clear);
 
-
 	    /* イベントの登録 */
 
+	    /* 数字群 */
 	    btnGroup[2][0].addActionListener(e -> processLabel.setText(processLabel.getText() + "1"));
 	    btnGroup[2][1].addActionListener(e -> processLabel.setText(processLabel.getText() + "2"));
 	    btnGroup[2][2].addActionListener(e -> processLabel.setText(processLabel.getText() + "3"));
@@ -135,31 +137,29 @@ public class CalcView extends JFrame{
 	    btnGroup[0][2].addActionListener(e -> processLabel.setText(processLabel.getText() + "9"));
 	    btnGroup[3][1].addActionListener(e -> processLabel.setText(processLabel.getText() + "0"));
 
+	    /* 数の次にくること */
 	    btnGroup[3][0].addActionListener(e -> processLabel.setText(processLabel.getText() + "."));
 
+	    /* 記号は連続して入力できないようにする */
 	    btnGroup[3][2].addActionListener(e -> processLabel.setText(processLabel.getText() + "+"));
 	    btnGroup[2][3].addActionListener(e -> processLabel.setText(processLabel.getText() + "-"));
 	    btnGroup[1][3].addActionListener(e -> processLabel.setText(processLabel.getText() + "×"));
 	    btnGroup[0][3].addActionListener(e -> processLabel.setText(processLabel.getText() + "÷"));
 
+	    /* = resultLabelに結果を表示させ、プロセスラベルをクリアする*/
 	    btnGroup[3][3].addActionListener(e -> processLabel.setText(processLabel.getText() + "="));
 
 	    /* パーサに掛けて結果を表示する イベント*/
 	    /* エラー処理もそこでやる、パターンを考える。*/
-//	    btnGroup[3][3].addActionListener(e -> processLabel.setText(processLabel.getText() + "="));
+	//    btnGroup[3][3].addActionListener(e -> resultLabel.setText(Integer.parseInt(processLabel.getText())));
 
+	    /* カッコは数字の前、数字の後にくる。符号の前には開始カッコうてない */
 	    btnGroup[4][0].addActionListener(e -> processLabel.setText(processLabel.getText() + "("));
 	    btnGroup[4][1].addActionListener(e -> processLabel.setText(processLabel.getText() + ")"));
 
+	    /* result,process共に消す */
 	    clear.addActionListener(e -> processLabel.setText(" "));
 	    clear.addActionListener(e -> resultLabel.setText(" "));
 	}
-
-	/* 外部アクセス用メソッド*/
-
-	public void setText(JLabel label,String text){
-		label.setText(text);
-	}
-
 
 }

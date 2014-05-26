@@ -7,7 +7,5 @@ public class CalcModel {
 		//title,width,height
 		CalcView v = new CalcView("電卓",600,700);
 		v.setLocationRelativeTo(null);
-
-
 	}
 }
