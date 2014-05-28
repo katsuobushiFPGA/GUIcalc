@@ -1,5 +1,3 @@
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 class ParserTest {
 	public static boolean flag=false;
@@ -9,11 +7,11 @@ class ParserTest {
 		v.setLocationRelativeTo(null);
 
 		/* =を押したらパーサ起動、StringにあるものをInputStreamに変換し、double型で返す。 String.valueOf(double)でresultLabelに表示 */
-
+/*
 			final Reader r = new InputStreamReader(System.in);
 			final Parser parser = new Parser(r);
 			final double tree = parser.start();
-
+*/
 
     }
 }
