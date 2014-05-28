@@ -47,12 +47,10 @@ public class CalcView extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
 		for(int i=0;i < Jkeys.length;i++){
 			Jkeys[i] = new JButton(keys[i]);
 			Jkeys[i].setFont(new Font("MS ゴシック",Font.BOLD,40));
 		}
-
 		//Font
 		processLabel.setFont(new Font("MS ゴシック",Font.BOLD,40));
 		resultLabel.setFont(new Font("MS ゴシック",Font.BOLD,40));
@@ -64,7 +62,6 @@ public class CalcView extends JFrame{
 		/* resPanel-右づめにする。*/
 		processLabel.setHorizontalAlignment(JLabel.RIGHT);
 		resultLabel.setHorizontalAlignment(JLabel.RIGHT);
-
 
 		/* レイアウト関係 */
 		/* contentPaneを設定 */
@@ -82,8 +79,6 @@ public class CalcView extends JFrame{
 		mainPanel.add(keyPanel,BorderLayout.CENTER);
 		mainPanel.add(clearPanel,BorderLayout.SOUTH);
 
-		/* レイアウト終了 */
-
 		/* 貼り付け */
 		/* resPanel-resLabelをresPanelに貼り付ける。 */
 		resPanel.add(processLabel);
@@ -96,23 +91,7 @@ public class CalcView extends JFrame{
 		/* clearPanel-clearをclearPanelに貼り付ける*/
 		clearPanel.add(Jkeys[19]);
 
-		/* 貼り付けの終了 */
-
 		/* イベントの登録 */
-		/* 数字群 */
-//		for(int i=0;i<10;i++){
-//			Jkeys[i].addActionListener(e -> processLabel.setText(processLabel.getText() + keys[i]));
-//			counter++;
-//		}
-//		for(int i=0;i<10;i++){
-//			Jkeys[i].addActionListener(new ActionListener(){
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					processLabel.setText(processLabel.getText() + keys[counter]);
-//					counter++;
-//				}
-//			});
-//		}
 		Jkeys[0].addActionListener(e -> processLabel.setText(processLabel.getText() + "0"));
 		Jkeys[1].addActionListener(e -> processLabel.setText(processLabel.getText() + "1"));
 		Jkeys[2].addActionListener(e -> processLabel.setText(processLabel.getText() + "2"));
