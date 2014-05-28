@@ -1,0 +1,94 @@
+options
+{
+  static = false;
+}
+PARSER_BEGIN(Parser)
+import java.io.*;
+/* parserにイベントを登録させる。 */
+class Parser {
+
+}
+PARSER_END(Parser)
+TOKEN : {
+    <NUM : (["0"-"9"])+("."(["0"-"9"])+)*>
+ |  <PLUSOP : "+" >
+ |  <MULOP : "*" >
+ |  <MINUSOP : "-" >
+ |  <DIVOP : "/" >
+ |  <OPEN : "(" >
+ |  <CLOSE : ")" >
+ |  <EQOP : "=" >
+}
+SKIP : {
+    " " | "\n" | "\r"
+}
+public double start() :
+{
+    double root;
+}
+{
+    root=sum()
+    <EQOP> { return root; }
+}
+
+public double sum() :
+{
+    double root, node;
+}
+{
+    root=prod()
+    ( <PLUSOP> node=prod() {
+    //  root = Op.connectToLeft(root);
+	//	root.setOp('+');
+		root += node;
+	//  root.addRight(node);
+       }
+     |
+	 <MINUSOP> node=prod() {
+    //  root = Op.connectToLeft(root);
+	//  root.setOp('-');
+		root -= node;
+	//	root.addRight(node);
+       }
+   )* { return root; }
+}
+
+
+private double prod() :
+{
+	double node, root;
+}
+{
+    root=atai()
+  ( <MULOP> node=atai() {
+	//  root = Op.connectToLeft(root);
+	//  root.setOp('*');
+		root *= node;
+	//	root.addRight(node);
+     }
+   |
+   <DIVOP> node =atai() {
+    //  root = Op.connectToLeft(root);
+	//  root.setOp('/');
+		root /= node;
+	//  root.addRight(node);
+       }
+   )* { return root; }
+}
+
+
+private double atai() :
+{
+  double node;
+}
+{
+	node=num() { return node; }
+   | <OPEN> node=sum() <CLOSE> {return node;}
+}
+private double num() :
+{
+}
+{
+  <NUM> { return Double.parseDouble(token.image);}
+
+}
