@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class CalcView extends JFrame{
@@ -72,7 +73,7 @@ public class CalcView extends JFrame{
 		btnGroup[3][3] = new JButton("=");
 		btnGroup[4][0] = new JButton("(");
 		btnGroup[4][1] = new JButton(")");
-		btnGroup[4][2] = new JButton("");
+		btnGroup[4][2] = new JButton("BS");
 		btnGroup[4][3] = new JButton("");
 
 
@@ -196,19 +197,25 @@ public class CalcView extends JFrame{
 				resultLabel.setText(String.valueOf(tree));
 				processLabel.setText(" ");
 			} catch (IOException e1) {
-		//		JOptionPane.showMessageDialog(null, "処理中にエラーが発生しました。\nクリアします。");
+				JOptionPane.showMessageDialog(null, "処理中にエラーが発生しました。\nクリアします。");
 				  processLabel.setText(" ");
 				  resultLabel.setText(" ");
 			}catch(ParseException ep){
+				 JOptionPane.showMessageDialog(null, "処理中にエラーが発生しました\nクリアします");
 				processLabel.setText(" ");
 			    resultLabel.setText(" ");
 			}
 		});
 
-		/* カッコは数字の前、数字の後にくる。符号の前には開始カッコうてない */
 		btnGroup[4][0].addActionListener(e -> processLabel.setText(processLabel.getText() + "("));
 		btnGroup[4][1].addActionListener(e -> processLabel.setText(processLabel.getText() + ")"));
-
+		btnGroup[4][2].addActionListener(e -> {
+			if(processLabel.getText().length() != 0 || processLabel.getText() == " "){
+				processLabel.setText(processLabel.getText().substring(0,processLabel.getText().length()-1));
+			}else{
+				processLabel.setText(" ");
+			}
+		});
 		/* result,process共に消す */
 		clear.addActionListener(e -> processLabel.setText(" "));
 		clear.addActionListener(e -> resultLabel.setText(" "));
@@ -217,5 +224,4 @@ public class CalcView extends JFrame{
 	public JLabel getLabel(){
 		return processLabel;
 	}
-
 }

@@ -4,7 +4,7 @@ options
 }
 PARSER_BEGIN(Parser)
 import java.io.*;
-/* parserにイベントを登録させる。 */
+
 class Parser {
 
 }
