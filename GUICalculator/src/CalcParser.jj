@@ -6,18 +6,18 @@ PARSER_BEGIN(Parser)
 import java.io.*;
 
 class Parser {
-
 }
 PARSER_END(Parser)
 TOKEN : {
-    <NUM : (["0"-"9"])+("."(["0"-"9"])+)*>
- |  <PLUSOP : "+" >
- |  <MULOP : "*" >
+    <NUM     : (["0"-"9"])+>
+ |  <DOT     : "." >
+ |  <PLUSOP  : "+" >
+ |  <MULOP   : "*" >
  |  <MINUSOP : "-" >
- |  <DIVOP : "/" >
- |  <OPEN : "(" >
- |  <CLOSE : ")" >
- |  <EQOP : "=" >
+ |  <DIVOP   : "/" >
+ |  <OPEN    : "(" >
+ |  <CLOSE   : ")" >
+ |  <EQOP    : "=" >
 }
 SKIP : {
     " " | "\n" | "\r"
@@ -38,17 +38,11 @@ public double sum() :
 {
     root=prod()
     ( <PLUSOP> node=prod() {
-    //  root = Op.connectToLeft(root);
-	//	root.setOp('+');
-		root += node;
-	//  root.addRight(node);
+		root +=node;
        }
      |
 	 <MINUSOP> node=prod() {
-    //  root = Op.connectToLeft(root);
-	//  root.setOp('-');
 		root -= node;
-	//	root.addRight(node);
        }
    )* { return root; }
 }
@@ -59,36 +53,39 @@ private double prod() :
 	double node, root;
 }
 {
-    root=atai()
-  ( <MULOP> node=atai() {
-	//  root = Op.connectToLeft(root);
-	//  root.setOp('*');
+    root=dot()
+  ( <MULOP> node=dot() {
 		root *= node;
-	//	root.addRight(node);
      }
    |
-   <DIVOP> node =atai() {
-    //  root = Op.connectToLeft(root);
-	//  root.setOp('/');
+   <DIVOP> node =dot() {
+     if(node == 0)
+     	throw new ParseException();
 		root /= node;
-	//  root.addRight(node);
        }
    )* { return root; }
+}private double dot() :
+{  double root,node;
+  String tmp;
 }
-
-
+{	root=atai()
+	(	  <DOT> node=atai(){
+	    tmp=Double.toString(node);	 	root = root + node / Math.pow(10,tmp.length()-2);
+	  }	)*{return root;}
+}
 private double atai() :
 {
   double node;
 }
 {
 	node=num() { return node; }
-   | <OPEN> node=sum() <CLOSE> {return node;}
+	|<OPEN> node=sum() <CLOSE> {return node;}
 }
+
 private double num() :
 {
 }
 {
-  <NUM> { return Double.parseDouble(token.image);}
-
+  <NUM> {
+    	return Double.parseDouble(token.image);}
 }

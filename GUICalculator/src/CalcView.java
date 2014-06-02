@@ -135,7 +135,6 @@ public class CalcView extends JFrame{
 					processLabel.setText(processLabel.getText() + "/");
 				}
 		});
-
 		Jkeys[14].addActionListener(e -> {
 
 				processLabel.setText(processLabel.getText() + "=");
@@ -150,21 +149,36 @@ public class CalcView extends JFrame{
 				}
 				final Reader r = new InputStreamReader(bais);
 				final Parser parser = new Parser(r);
-				double result;
+
 				try {
+					double result;
 					result = parser.start();
+					result = result *= 1000000000;
+					result = Math.round(result);
+					result /= 1000000000;
+					System.out.println(Double.toString(result));
 					resultLabel.setText(String.valueOf(result));
 					processLabel.setText(" ");
 				}catch (ParseException ep) {
 					JOptionPane.showMessageDialog(null, "不正な入力です。\nクリアします。");
 					processLabel.setText(" ");
 					resultLabel.setText(" ");
+				}catch(NumberFormatException en){
+					JOptionPane.showMessageDialog(null, "不正な入力です。\nクリアします。");
+					processLabel.setText(" ");
+					resultLabel.setText(" ");
 				}
 		});
-		Jkeys[15].addActionListener(e -> processLabel.setText(processLabel.getText() + "."));
+
+		Jkeys[15].addActionListener(e -> {
+				processLabel.setText(processLabel.getText() + ".");
+		});
+
 		Jkeys[16].addActionListener(e -> {
-			if(processLabel.getText().length() != 0 || processLabel.getText() == " "){
+			if(processLabel.getText().length() != 0){
 				processLabel.setText(processLabel.getText().substring(0,processLabel.getText().length()-1));
+				if(processLabel.getText().length() == 0)
+					processLabel.setText(" ");
 			}else{
 				processLabel.setText(" ");
 			}
