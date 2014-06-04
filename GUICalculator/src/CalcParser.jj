@@ -51,6 +51,7 @@ public BigDecimal sum() :
 private BigDecimal prod() :
 {
 	BigDecimal node, root;
+	String tmp;
 }
 {
     root=dot()
@@ -59,10 +60,14 @@ private BigDecimal prod() :
      }
    |
    <DIVOP> node =dot() {
-     if(node.equals(0))
-     	throw new ParseException();
-     else
-		root = root.divide(node);
+  	    tmp = root.divide(node,25,BigDecimal.ROUND_DOWN).toString();
+  	    for(int i=tmp.length()-1;i > 0;i--)  	    {
+  	     	if(tmp.charAt(i) == '0')  	     	{				tmp=tmp.substring(0,i);
+  	     	}
+  	     	else
+  	     		break;  	    }
+		root = new BigDecimal(tmp);
+
        }
    )* { return root; }
 }private BigDecimal dot() :

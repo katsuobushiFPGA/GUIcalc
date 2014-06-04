@@ -48,6 +48,7 @@ class Parser implements ParserConstants {
 
   final private BigDecimal prod() throws ParseException {
         BigDecimal node, root;
+        String tmp;
     root = dot();
     label_2:
     while (true) {
@@ -69,10 +70,17 @@ class Parser implements ParserConstants {
       case DIVOP:
         jj_consume_token(DIVOP);
         node = dot();
-     if(node.equals(0))
-        {if (true) throw new ParseException();}
-     else
-                root = root.divide(node);
+            tmp = root.divide(node,25,BigDecimal.ROUND_DOWN).toString();
+            for(int i=tmp.length()-1;i > 0;i--)
+            {
+                if(tmp.charAt(i) == '0')
+                {
+                                tmp=tmp.substring(0,i);
+                }
+                else
+                        break;
+            }
+                root = new BigDecimal(tmp);
         break;
       default:
         jj_la1[3] = jj_gen;
