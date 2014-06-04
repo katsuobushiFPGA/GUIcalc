@@ -22,70 +22,70 @@ TOKEN : {
 SKIP : {
     " " | "\n" | "\r"
 }
-public double start() :
+public BigDecimal start() :
 {
-    double root;
+    BigDecimal root;
 }
 {
     root=sum()
     <EQOP> { return root; }
 }
 
-public double sum() :
+public BigDecimal sum() :
 {
-    double root, node;
+    BigDecimal root, node;
 }
 {
     root=prod()
     ( <PLUSOP> node=prod() {
-		root +=node;
+		root= root.add(node);
        }
      |
 	 <MINUSOP> node=prod() {
-		root -= node;
+		root = root.subtract(node);
        }
    )* { return root; }
 }
 
 
-private double prod() :
+private BigDecimal prod() :
 {
-	double node, root;
+	BigDecimal node, root;
 }
 {
     root=dot()
   ( <MULOP> node=dot() {
-		root *= node;
+		root = root.multiply(node);
      }
    |
    <DIVOP> node =dot() {
-     if(node == 0)
+     if(node.equals(0))
      	throw new ParseException();
-		root /= node;
+     else
+		root = root.divide(node);
        }
    )* { return root; }
-}private double dot() :
-{  double root,node;
+}private BigDecimal dot() :
+{  BigDecimal root,node;
   String tmp;
 }
 {	root=atai()
-	(	  <DOT> node=atai(){
-	    tmp=Double.toString(node);	 	root = root + node / Math.pow(10,tmp.length()-2);
+	(	  <DOT> node=atai(){	 	root = root.add(node.divide(new BigDecimal(Math.pow(10,node.toString().length()))));
 	  }	)*{return root;}
 }
-private double atai() :
+private BigDecimal atai() :
 {
-  double node;
+  BigDecimal node;
 }
 {
 	node=num() { return node; }
 	|<OPEN> node=sum() <CLOSE> {return node;}
 }
 
-private double num() :
+private BigDecimal num() :
 {
 }
 {
   <NUM> {
-    	return Double.parseDouble(token.image);}
+    	return new BigDecimal(token.image);}
 }

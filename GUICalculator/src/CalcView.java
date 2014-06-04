@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -151,12 +152,8 @@ public class CalcView extends JFrame{
 				final Parser parser = new Parser(r);
 
 				try {
-					double result;
+					BigDecimal result;
 					result = parser.start();
-					result = result *= 1000000000;
-					result = Math.round(result);
-					result /= 1000000000;
-					System.out.println(Double.toString(result));
 					resultLabel.setText(String.valueOf(result));
 					processLabel.setText(" ");
 				}catch (ParseException ep) {
@@ -169,7 +166,6 @@ public class CalcView extends JFrame{
 					resultLabel.setText(" ");
 				}
 		});
-
 		Jkeys[15].addActionListener(e -> {
 				processLabel.setText(processLabel.getText() + ".");
 		});
