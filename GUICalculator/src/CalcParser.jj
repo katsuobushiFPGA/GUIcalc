@@ -4,6 +4,7 @@ options
 }
 PARSER_BEGIN(Parser)
 import java.io.*;
+import java.math.*;
 
 class Parser {
 }
@@ -43,7 +44,7 @@ public BigDecimal sum() :
      |
 	 <MINUSOP> node=prod() {
 		root = root.subtract(node);
-       }
+		}
    )* { return root; }
 }
 
@@ -60,14 +61,13 @@ private BigDecimal prod() :
      }
    |
    <DIVOP> node =dot() {
-  	    tmp = root.divide(node,25,BigDecimal.ROUND_DOWN).toString();
+  	    tmp = root.divide(node,20,BigDecimal.ROUND_HALF_UP).toString();
   	    for(int i=tmp.length()-1;i > 0;i--)  	    {
   	     	if(tmp.charAt(i) == '0')  	     	{				tmp=tmp.substring(0,i);
   	     	}
   	     	else
   	     		break;  	    }
 		root = new BigDecimal(tmp);
-
        }
    )* { return root; }
 }private BigDecimal dot() :

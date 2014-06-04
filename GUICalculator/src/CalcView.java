@@ -168,6 +168,7 @@ public class CalcView extends JFrame{
 					JOptionPane.showMessageDialog(null, "不正な入力です。\nクリアします。");
 					processLabel.setText(" ");
 					resultLabel.setText(" ");
+
 				}
 		});
 		Jkeys[15].addActionListener(e -> {
