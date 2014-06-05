@@ -33,21 +33,23 @@ private int jjMoveStringLiteralDfa0_0()
    switch(curChar)
    {
       case 40:
-         return jjStopAtPos(0, 7);
-      case 41:
          return jjStopAtPos(0, 8);
+      case 41:
+         return jjStopAtPos(0, 9);
       case 42:
-         return jjStopAtPos(0, 4);
-      case 43:
-         return jjStopAtPos(0, 3);
-      case 45:
          return jjStopAtPos(0, 5);
+      case 43:
+         return jjStopAtPos(0, 4);
+      case 45:
+         return jjStopAtPos(0, 6);
       case 46:
          return jjStopAtPos(0, 2);
       case 47:
-         return jjStopAtPos(0, 6);
+         return jjStopAtPos(0, 7);
       case 61:
-         return jjStopAtPos(0, 9);
+         return jjStopAtPos(0, 10);
+      case 94:
+         return jjStopAtPos(0, 3);
       default :
          return jjMoveNfa_0(0, 0);
    }
@@ -121,18 +123,18 @@ static final int[] jjnextStates = {
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, "\56", "\53", "\52", "\55", "\57", "\50", "\51", "\75", null, null, 
-null, };
+"", null, "\56", "\136", "\53", "\52", "\55", "\57", "\50", "\51", "\75", null, 
+null, null, };
 
 /** Lexer state names. */
 public static final String[] lexStateNames = {
    "DEFAULT",
 };
 static final long[] jjtoToken = {
-   0x3ffL, 
+   0x7ffL, 
 };
 static final long[] jjtoSkip = {
-   0x1c00L, 
+   0x3800L, 
 };
 protected SimpleCharStream input_stream;
 private final int[] jjrounds = new int[1];

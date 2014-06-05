@@ -54,6 +54,7 @@ class Parser implements ParserConstants {
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case EXPOP:
       case MULOP:
       case DIVOP:
         ;
@@ -82,6 +83,11 @@ class Parser implements ParserConstants {
                         break;
             }
                 root = new BigDecimal(tmp);
+        break;
+      case EXPOP:
+        jj_consume_token(EXPOP);
+        node = dot();
+                root = new BigDecimal(Math.pow(root.doubleValue(),node.doubleValue()));
         break;
       default:
         jj_la1[3] = jj_gen;
@@ -157,7 +163,7 @@ class Parser implements ParserConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x28,0x28,0x50,0x50,0x4,0x82,};
+      jj_la1_0 = new int[] {0x50,0x50,0xa8,0xa8,0x4,0x102,};
    }
 
   /** Constructor with InputStream. */
@@ -274,7 +280,7 @@ class Parser implements ParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[13];
+    boolean[] la1tokens = new boolean[14];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -288,7 +294,7 @@ class Parser implements ParserConstants {
         }
       }
     }
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 14; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

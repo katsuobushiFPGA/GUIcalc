@@ -12,6 +12,7 @@ PARSER_END(Parser)
 TOKEN : {
     <NUM     : (["0"-"9"])+>
  |  <DOT     : "." >
+ |  <EXPOP   : "^" >
  |  <PLUSOP  : "+" >
  |  <MULOP   : "*" >
  |  <MINUSOP : "-" >
@@ -69,6 +70,9 @@ private BigDecimal prod() :
   	     		break;  	    }
 		root = new BigDecimal(tmp);
        }
+   |
+   < EXPOP >node=dot()   {
+		root = new BigDecimal(Math.pow(root.doubleValue(),node.doubleValue()));   }
    )* { return root; }
 }private BigDecimal dot() :
 {  BigDecimal root,node;

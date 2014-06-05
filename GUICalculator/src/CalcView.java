@@ -1,5 +1,3 @@
-
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
@@ -18,27 +16,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class CalcView extends JFrame{
-	public static int counter=0;
 	/* keys */
-	String[] keys = {"0","1","2","3","4","5","6","7","8","9","+","-","*","/","=",".","BS","(",")","C"};
+	String[] keys = {"0","1","2","3","4","5","6","7","8","9","+","-","*","/","=",".","BS","(",")","^","C"};
 	/* main,key,result,clearのPanel,Layoutの生成 */
 	JPanel mainPanel = new JPanel();
 	JPanel keyPanel = new JPanel();
 	JPanel resPanel = new JPanel();
 	JPanel clearPanel = new JPanel();
 
-	BorderLayout mainLayout = new BorderLayout();
-
-	GridLayout keyLayout = new GridLayout(5,4);
-	GridLayout resLayout = new GridLayout(2,2);
-	GridLayout clearLayout = new GridLayout(1,1);
-
 	/* keyPanel-電卓の数字ボタンを生成 */
 	JButton[] Jkeys = new JButton[keys.length];
 
 	/* resPanel-過程・結果の表示部分を生成 */
-	JLabel processLabel = new JLabel("");
-	JLabel resultLabel = new JLabel("");
+	JLabel processLabel = new JLabel(" ");
+	JLabel resultLabel = new JLabel(" ");
 
 	/* 電卓のインスタンスを生成した時の初期化処理 */
 	public CalcView(String title,int width,int height){
@@ -56,10 +47,6 @@ public class CalcView extends JFrame{
 		processLabel.setFont(new Font("MS ゴシック",Font.BOLD,40));
 		resultLabel.setFont(new Font("MS ゴシック",Font.BOLD,40));
 
-		/* resPanel -表示する文字を設定する */
-		processLabel.setText("");
-		resultLabel.setText(" ");
-
 		/* resPanel-右づめにする。*/
 		processLabel.setHorizontalAlignment(JLabel.RIGHT);
 		resultLabel.setHorizontalAlignment(JLabel.RIGHT);
@@ -70,10 +57,10 @@ public class CalcView extends JFrame{
 		contentPane.add(mainPanel);
 
 		/* レイアウトを設定する */
-		mainPanel.setLayout(mainLayout);
-		keyPanel.setLayout(keyLayout);
-		resPanel.setLayout(resLayout);
-		clearPanel.setLayout(clearLayout);
+		mainPanel.setLayout(new BorderLayout());
+		keyPanel.setLayout(new GridLayout(5,4));
+		resPanel.setLayout(new GridLayout(2,2));
+		clearPanel.setLayout(new GridLayout(1,1));
 
 		/* mainPanel-resultPanelとkeyPanelを設定する */
 		mainPanel.add(resPanel,BorderLayout.NORTH);
@@ -86,11 +73,10 @@ public class CalcView extends JFrame{
 		resPanel.add(resultLabel);
 
 		/* keyPanel-keyをkeyPanelに貼り付ける */
-		for(int i=0;i < Jkeys.length;i++){
-			keyPanel.add(Jkeys[i]);
-		}
+		CalcView.addButton(keyPanel, Jkeys);
+
 		/* clearPanel-clearをclearPanelに貼り付ける*/
-		clearPanel.add(Jkeys[19]);
+		clearPanel.add(Jkeys[20]);
 
 		/* イベントの登録 */
 		Jkeys[0].addActionListener(e -> processLabel.setText(processLabel.getText() + "0"));
@@ -142,7 +128,7 @@ public class CalcView extends JFrame{
 
 				InputStream bais = null;
 				try {
-					bais = new ByteArrayInputStream(processLabel.getText().getBytes("utf-8"));
+				 bais = new ByteArrayInputStream(processLabel.getText().getBytes("utf-8"));
 				} catch (IOException eio) {
 					JOptionPane.showMessageDialog(null, "処理中にエラーが発生しました。\nクリアします。");
 					processLabel.setText(" ");
@@ -168,7 +154,6 @@ public class CalcView extends JFrame{
 					JOptionPane.showMessageDialog(null, "不正な入力です。\nクリアします。");
 					processLabel.setText(" ");
 					resultLabel.setText(" ");
-
 				}
 		});
 		Jkeys[15].addActionListener(e -> {
@@ -186,10 +171,39 @@ public class CalcView extends JFrame{
 		});
 		Jkeys[17].addActionListener(e -> processLabel.setText(processLabel.getText() + "("));
 		Jkeys[18].addActionListener(e -> processLabel.setText(processLabel.getText() + ")"));
-
-		Jkeys[19].addActionListener(e -> {
+		Jkeys[19].addActionListener(e ->{
+			if(resultLabel != null){
+				processLabel.setText(resultLabel.getText() + processLabel.getText() + "^");
+				resultLabel.setText("");
+			}else{
+				processLabel.setText(processLabel.getText() + "^");
+			}
+		});
+		Jkeys[20].addActionListener(e -> {
 			processLabel.setText(" ");
 			resultLabel.setText(" ");
 		});
+	}
+	public static void addButton(JPanel panel,JButton[] button){
+		panel.add(button[16]);
+		panel.add(button[17]);
+		panel.add(button[18]);
+		panel.add(button[19]);
+		panel.add(button[7]);
+		panel.add(button[8]);
+		panel.add(button[9]);
+		panel.add(button[10]);
+		panel.add(button[4]);
+		panel.add(button[5]);
+		panel.add(button[6]);
+		panel.add(button[11]);
+		panel.add(button[1]);
+		panel.add(button[2]);
+		panel.add(button[3]);
+		panel.add(button[12]);
+		panel.add(button[0]);
+		panel.add(button[15]);
+		panel.add(button[13]);
+		panel.add(button[14]);
 	}
 }
