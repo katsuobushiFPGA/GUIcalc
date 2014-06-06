@@ -72,9 +72,9 @@ public BigDecimal prod() :
        }
    |
    < EXPOP >node=dot()   {
-		root = new BigDecimal(Math.pow(root.doubleValue(),node.doubleValue()));   }
-   )* { return root; }
-}public BigDecimal dot() :
+		root = new BigDecimal(Math.pow(root.doubleValue(),node.doubleValue()));   } )* { return root; }
+}
+public BigDecimal dot() :
 {  BigDecimal root,node;
   String tmp;
 }
@@ -95,8 +95,6 @@ public BigDecimal num() :
 {
 }
 {
-
-  <NUM> {
-
-    	return new BigDecimal(token.image);}
+   < NUM >   {
+     return new BigDecimal(token.image);   }
 }

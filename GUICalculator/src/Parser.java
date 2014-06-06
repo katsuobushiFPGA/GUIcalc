@@ -95,7 +95,7 @@ class Parser implements ParserConstants {
         throw new ParseException();
       }
     }
-        {if (true) return root;}
+          {if (true) return root;}
     throw new Error("Missing return statement in function");
   }
 
@@ -144,7 +144,7 @@ class Parser implements ParserConstants {
 
   final public BigDecimal num() throws ParseException {
     jj_consume_token(NUM);
-        {if (true) return new BigDecimal(token.image);}
+     {if (true) return new BigDecimal(token.image);}
     throw new Error("Missing return statement in function");
   }
 

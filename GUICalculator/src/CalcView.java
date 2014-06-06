@@ -83,19 +83,14 @@ public class CalcView extends JFrame{
 			final int n = i;
 			Jkeys[i].addActionListener(e -> processLabel.setText(processLabel.getText() + keys[n]));
 		}
-
-		Jkeys[10].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,"+");
-		});
-		Jkeys[11].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,"-");
-		});
-		Jkeys[12].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,"*");
-		});
-		Jkeys[13].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,"/");
-		});
+		for(int i=10;i<keys.length;i++){
+			final int n = i;
+			if(i==14 || i== 16 || i==20)
+				continue;
+			Jkeys[i].addActionListener(e -> {
+				CalcView.nullChecker(processLabel,resultLabel,keys[n]);
+			});
+		}
 		Jkeys[14].addActionListener(e -> {
 
 				processLabel.setText(processLabel.getText() + "=");
@@ -130,10 +125,6 @@ public class CalcView extends JFrame{
 					resultLabel.setText(" ");
 				}
 		});
-		Jkeys[15].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,".");
-		});
-
 		Jkeys[16].addActionListener(e -> {
 			if(processLabel.getText().length() != 0){
 				processLabel.setText(processLabel.getText().substring(0,processLabel.getText().length()-1));
@@ -142,15 +133,6 @@ public class CalcView extends JFrame{
 			}else{
 				processLabel.setText(" ");
 			}
-		});
-		Jkeys[17].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,"(");
-		});
-		Jkeys[18].addActionListener(e -> {
-			CalcView.nullChecker(processLabel,resultLabel,")");
-		});
-		Jkeys[19].addActionListener(e ->{
-			CalcView.nullChecker(processLabel,resultLabel,"^");
 		});
 		Jkeys[20].addActionListener(e -> {
 			processLabel.setText(" ");
