@@ -79,16 +79,10 @@ public class CalcView extends JFrame{
 		clearPanel.add(Jkeys[20]);
 
 		/* イベントの登録 */
-		Jkeys[0].addActionListener(e -> processLabel.setText(processLabel.getText() + "0"));
-		Jkeys[1].addActionListener(e -> processLabel.setText(processLabel.getText() + "1"));
-		Jkeys[2].addActionListener(e -> processLabel.setText(processLabel.getText() + "2"));
-		Jkeys[3].addActionListener(e -> processLabel.setText(processLabel.getText() + "3"));
-		Jkeys[4].addActionListener(e -> processLabel.setText(processLabel.getText() + "4"));
-		Jkeys[5].addActionListener(e -> processLabel.setText(processLabel.getText() + "5"));
-		Jkeys[6].addActionListener(e -> processLabel.setText(processLabel.getText() + "6"));
-		Jkeys[7].addActionListener(e -> processLabel.setText(processLabel.getText() + "7"));
-		Jkeys[8].addActionListener(e -> processLabel.setText(processLabel.getText() + "8"));
-		Jkeys[9].addActionListener(e -> processLabel.setText(processLabel.getText() + "9"));
+		for(int i=0;i<10;i++){
+			final int n = i;
+			Jkeys[i].addActionListener(e -> processLabel.setText(processLabel.getText() + keys[n]));
+		}
 
 		Jkeys[10].addActionListener(e -> {
 			if(resultLabel != null){

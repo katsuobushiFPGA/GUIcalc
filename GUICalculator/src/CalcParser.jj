@@ -46,11 +46,11 @@ public BigDecimal sum() :
 	 <MINUSOP> node=prod() {
 		root = root.subtract(node);
 		}
-   )* { return root; }
+	)* { return root; }
 }
 
 
-private BigDecimal prod() :
+public BigDecimal prod() :
 {
 	BigDecimal node, root;
 	String tmp;
@@ -74,7 +74,7 @@ private BigDecimal prod() :
    < EXPOP >node=dot()   {
 		root = new BigDecimal(Math.pow(root.doubleValue(),node.doubleValue()));   }
    )* { return root; }
-}private BigDecimal dot() :
+}public BigDecimal dot() :
 {  BigDecimal root,node;
   String tmp;
 }
@@ -82,7 +82,7 @@ private BigDecimal prod() :
 	(	  <DOT> node=atai(){	 	root = root.add(node.divide(new BigDecimal(Math.pow(10,node.toString().length()))));
 	  }	)*{return root;}
 }
-private BigDecimal atai() :
+public BigDecimal atai() :
 {
   BigDecimal node;
 }
@@ -91,10 +91,12 @@ private BigDecimal atai() :
 	|<OPEN> node=sum() <CLOSE> {return node;}
 }
 
-private BigDecimal num() :
+public BigDecimal num() :
 {
 }
 {
+
   <NUM> {
+
     	return new BigDecimal(token.image);}
 }

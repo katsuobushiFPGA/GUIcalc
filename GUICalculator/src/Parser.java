@@ -43,11 +43,11 @@ class Parser implements ParserConstants {
         throw new ParseException();
       }
     }
-        {if (true) return root;}
+             {if (true) return root;}
     throw new Error("Missing return statement in function");
   }
 
-  final private BigDecimal prod() throws ParseException {
+  final public BigDecimal prod() throws ParseException {
         BigDecimal node, root;
         String tmp;
     root = dot();
@@ -99,7 +99,7 @@ class Parser implements ParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final private BigDecimal dot() throws ParseException {
+  final public BigDecimal dot() throws ParseException {
   BigDecimal root,node;
   String tmp;
     root = atai();
@@ -121,7 +121,7 @@ class Parser implements ParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final private BigDecimal atai() throws ParseException {
+  final public BigDecimal atai() throws ParseException {
   BigDecimal node;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case NUM:
@@ -142,7 +142,7 @@ class Parser implements ParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final private BigDecimal num() throws ParseException {
+  final public BigDecimal num() throws ParseException {
     jj_consume_token(NUM);
         {if (true) return new BigDecimal(token.image);}
     throw new Error("Missing return statement in function");
