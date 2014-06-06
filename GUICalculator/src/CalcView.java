@@ -85,36 +85,16 @@ public class CalcView extends JFrame{
 		}
 
 		Jkeys[10].addActionListener(e -> {
-			if(resultLabel != null){
-				processLabel.setText(resultLabel.getText() + processLabel.getText() + "+");
-				resultLabel.setText("");
-			}else{
-				processLabel.setText(processLabel.getText() + "+");
-			}
+			CalcView.nullChecker(processLabel,resultLabel,"+");
 		});
 		Jkeys[11].addActionListener(e -> {
-				if(resultLabel != null){
-					processLabel.setText(resultLabel.getText() + processLabel.getText() + "-");
-					resultLabel.setText("");
-				}else{
-					processLabel.setText(processLabel.getText() + "-");
-				}
+			CalcView.nullChecker(processLabel,resultLabel,"-");
 		});
 		Jkeys[12].addActionListener(e -> {
-				if(resultLabel != null){
-					processLabel.setText(resultLabel.getText() + processLabel.getText() + "*");
-					resultLabel.setText("");
-				}else{
-					processLabel.setText(processLabel.getText() + "*");
-				}
+			CalcView.nullChecker(processLabel,resultLabel,"*");
 		});
 		Jkeys[13].addActionListener(e -> {
-				if(resultLabel != null){
-					processLabel.setText(resultLabel.getText() + processLabel.getText() + "/");
-					resultLabel.setText("");
-				}else{
-					processLabel.setText(processLabel.getText() + "/");
-				}
+			CalcView.nullChecker(processLabel,resultLabel,"/");
 		});
 		Jkeys[14].addActionListener(e -> {
 
@@ -151,7 +131,7 @@ public class CalcView extends JFrame{
 				}
 		});
 		Jkeys[15].addActionListener(e -> {
-				processLabel.setText(processLabel.getText() + ".");
+			CalcView.nullChecker(processLabel,resultLabel,".");
 		});
 
 		Jkeys[16].addActionListener(e -> {
@@ -163,15 +143,14 @@ public class CalcView extends JFrame{
 				processLabel.setText(" ");
 			}
 		});
-		Jkeys[17].addActionListener(e -> processLabel.setText(processLabel.getText() + "("));
-		Jkeys[18].addActionListener(e -> processLabel.setText(processLabel.getText() + ")"));
+		Jkeys[17].addActionListener(e -> {
+			CalcView.nullChecker(processLabel,resultLabel,"(");
+		});
+		Jkeys[18].addActionListener(e -> {
+			CalcView.nullChecker(processLabel,resultLabel,")");
+		});
 		Jkeys[19].addActionListener(e ->{
-			if(resultLabel != null){
-				processLabel.setText(resultLabel.getText() + processLabel.getText() + "^");
-				resultLabel.setText("");
-			}else{
-				processLabel.setText(processLabel.getText() + "^");
-			}
+			CalcView.nullChecker(processLabel,resultLabel,"^");
 		});
 		Jkeys[20].addActionListener(e -> {
 			processLabel.setText(" ");
@@ -199,5 +178,13 @@ public class CalcView extends JFrame{
 		panel.add(button[15]);
 		panel.add(button[13]);
 		panel.add(button[14]);
+	}
+	public static void nullChecker(JLabel processLabel,JLabel resultLabel,String text){
+		if(resultLabel != null){
+			processLabel.setText(resultLabel.getText() + processLabel.getText() + text);
+			resultLabel.setText("");
+		}else{
+			processLabel.setText(processLabel.getText() + text);
+		}
 	}
 }
