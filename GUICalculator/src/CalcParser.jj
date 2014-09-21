@@ -4,91 +4,97 @@ options
 }
 PARSER_BEGIN(Parser)
 import java.io.*;
-/* parserにイベントを登録させる。 */
-class Parser {
+import java.math.*;
 
+class Parser {
 }
 PARSER_END(Parser)
 TOKEN : {
-    <NUM : (["0"-"9"])+("."(["0"-"9"])+)*>
- |  <PLUSOP : "+" >
- |  <MULOP : "*" >
+    <NUM     : (["0"-"9"])+>
+ |  <DOT     : "." >
+ |  <EXPOP   : "^" >
+ |  <PLUSOP  : "+" >
+ |  <MULOP   : "*" >
  |  <MINUSOP : "-" >
- |  <DIVOP : "/" >
- |  <OPEN : "(" >
- |  <CLOSE : ")" >
- |  <EQOP : "=" >
+ |  <DIVOP   : "/" >
+ |  <OPEN    : "(" >
+ |  <CLOSE   : ")" >
+ |  <EQOP    : "=" >
 }
 SKIP : {
     " " | "\n" | "\r"
 }
-public double start() :
+public BigDecimal start() :
 {
-    double root;
+    BigDecimal root;
 }
 {
     root=sum()
     <EQOP> { return root; }
 }
 
-public double sum() :
+public BigDecimal sum() :
 {
-    double root, node;
+    BigDecimal root, node;
 }
 {
     root=prod()
     ( <PLUSOP> node=prod() {
-    //  root = Op.connectToLeft(root);
-	//	root.setOp('+');
-		root += node;
-	//  root.addRight(node);
+		root= root.add(node);
        }
      |
 	 <MINUSOP> node=prod() {
-    //  root = Op.connectToLeft(root);
-	//  root.setOp('-');
-		root -= node;
-	//	root.addRight(node);
-       }
-   )* { return root; }
+		root = root.subtract(node);
+		}
+	)* { return root; }
 }
 
 
-private double prod() :
+public BigDecimal prod() :
 {
-	double node, root;
+	BigDecimal node, root;
+	String tmp;
 }
 {
-    root=atai()
-  ( <MULOP> node=atai() {
-	//  root = Op.connectToLeft(root);
-	//  root.setOp('*');
-		root *= node;
-	//	root.addRight(node);
+    root=dot()
+  ( <MULOP> node=dot() {
+		root = root.multiply(node);
      }
    |
-   <DIVOP> node =atai() {
-    //  root = Op.connectToLeft(root);
-	//  root.setOp('/');
-		root /= node;
-	//  root.addRight(node);
+   <DIVOP> node =dot() {
+  	    tmp = root.divide(node,20,BigDecimal.ROUND_HALF_UP).toString();
+  	    for(int i=tmp.length()-1;i > 0;i--)  	    {
+  	     	if(tmp.charAt(i) == '0')  	     	{				tmp=tmp.substring(0,i);
+  	     	}
+  	     	else
+  	     		break;  	    }
+		root = new BigDecimal(tmp);
        }
-   )* { return root; }
+   |
+   < EXPOP >node=dot()   {
+		root = new BigDecimal(Math.pow(root.doubleValue(),node.doubleValue()));   } )* { return root; }
 }
-
-
-private double atai() :
+public BigDecimal dot() :
+{  BigDecimal root,node;
+  String tmp;
+}
+{	root=atai()
+	(	  <DOT> node=atai(){	 	root = root.add(node.divide(new BigDecimal(Math.pow(10,node.toString().length()))));
+	  }	)*{return root;}
+}
+public BigDecimal atai() :
 {
-  double node;
+  BigDecimal node;
 }
 {
 	node=num() { return node; }
-   | <OPEN> node=sum() <CLOSE> {return node;}
+	|<OPEN> node=sum() <CLOSE> {return node;}
 }
-private double num() :
-{
-}
-{
-  <NUM> { return Double.parseDouble(token.image);}
 
+public BigDecimal num() :
+{
+}
+{
+   < NUM >   {
+     return new BigDecimal(token.image);   }
 }
